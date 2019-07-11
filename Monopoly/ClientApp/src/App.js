@@ -12,8 +12,7 @@ export default class App extends Component {
     return (
       <div className='game'>
         <div className='game-field-player'>
-          <Board/>
-          <Player />
+          <Board/>          
         </div>
         <Info/>
       </div>

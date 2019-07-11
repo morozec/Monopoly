@@ -11,8 +11,9 @@ export default function Cell(props){
             </div>
             <div className='cell-body' >
                 <p>{props.name}</p>               
-                {props.isToken && <img src={car} alt='not found'/>}               
-                <p>{props.cost}</p>
+                {props.pos === +props.name && <img src={car} alt='not found'/>}    
+                          
+                <p>{`${props.cost}$`}</p>
 
             </div>
         </div>
