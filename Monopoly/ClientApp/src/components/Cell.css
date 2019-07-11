@@ -1,0 +1,41 @@
+.cell{
+    display:flex;
+    flex-direction: column;    
+    height: 100%;  
+    width: 100%;     
+}
+
+
+.cell-header{
+    height:20%;
+    width:100%;
+}
+
+.red{
+    background-color: red;
+}
+
+.blue{
+    background-color: blue;
+}
+
+.brown{
+    background-color: brown;
+}
+
+.cell-body{
+    height: 80%;
+    width:100%;   
+    text-align: center;
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+
+p{
+    margin: 0;
+    padding: 0;
+}
+

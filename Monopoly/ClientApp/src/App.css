@@ -1,0 +1,23 @@
+.game{
+    background-color: black;
+    width:100%;
+    height:100%;
+    display: flex;
+    flex-direction: row;       
+}
+.game-info{
+    background-color: pink;  
+    width:30%;     
+}
+.game-field-player{
+    background-color: grey;
+    width:70%;
+    display: flex;
+    flex-direction: column
+}
+
+.game-player{
+    background-color: yellow;
+    width:100%;
+    height:20%;
+}
