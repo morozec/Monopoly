@@ -14,8 +14,8 @@ export default function GameZone(props) {
 
     const rollDoneCallback = (num) => {
         if (reactDice) {//пропускаем начальный колбэк, который вызывается сам
-            console.log(`You rolled a ${num}`)
-            props.updatePos(num)
+            console.log(`You rolled a ${num}`)          
+            props.updatePos(num)           
         }
     }
 
