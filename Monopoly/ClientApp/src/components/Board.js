@@ -60,7 +60,6 @@ export default function Board() {
                 <Cell name='3' cost='60' color='brown' pos={pos}/>
                 <Cell name='4' cost='60' color='brown' pos={pos}/>
                 <Cell name='5' cost='60' color='brown' pos={pos}/>
-                <Cell name='5' cost='60' color='brown' pos={pos}/>
                 <Cell name='6' cost='60' color='brown' pos={pos}/>
                 <Cell name='7' cost='60' color='brown' pos={pos}/>
                 <Cell name='8' cost='60' color='brown' pos={pos}/>

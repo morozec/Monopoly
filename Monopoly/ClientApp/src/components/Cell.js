@@ -10,10 +10,9 @@ export default function Cell(props){
                 
             </div>
             <div className='cell-body' >
-                <p>{props.name}</p>               
-                {props.pos === +props.name && <img src={car} alt='not found'/>}    
-                          
-                <p>{`${props.cost}$`}</p>
+                <p><b>{props.name}</b></p>               
+                {props.pos === +props.name && <img src={car} alt='not found'/>}   
+                <p><b>{`${props.cost}$`}</b></p>
 
             </div>
         </div>
