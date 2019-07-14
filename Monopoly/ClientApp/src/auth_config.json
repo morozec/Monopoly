@@ -1,4 +1,5 @@
 {
     "domain": "morozec.auth0.com",
-    "clientId": "Sj0VJIf0cvUr1rgm6MsWat7NIZcMEsQu"
+    "clientId": "v9OOD3vHPjfkUfRUcWIQjow79zRRRgsE",    
+    "audience": "https://localhost:44347/api"
   }
