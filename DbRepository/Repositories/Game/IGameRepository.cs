@@ -6,7 +6,10 @@ namespace DbRepository.Repositories.Game
 {
     public interface IGameRepository
     {
+        Task<int> AddPlayer(Player player);
+
         Task<List<Model.Game>> GetGames();
+        Task AddGame(Model.Game game);
         Task<List<Player>> GetGamePlayers(int gameId);
     }
 }

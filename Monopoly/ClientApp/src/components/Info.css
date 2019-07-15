@@ -1,0 +1,10 @@
+.login-container{
+    background-color: pink;  
+
+    width:30%; 
+    padding: 1rem;    
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+}

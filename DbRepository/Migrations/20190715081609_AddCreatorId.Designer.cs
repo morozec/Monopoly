@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbRepository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20190715060647_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190715081609_AddCreatorId")]
+    partial class AddCreatorId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,6 +26,8 @@ namespace DbRepository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CreatorId");
 
                     b.Property<string>("Name");
 
