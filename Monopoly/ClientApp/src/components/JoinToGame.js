@@ -1,23 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth0 } from '../react-auto0-wrapper';
 import { Button } from 'reactstrap';
+import AbortController from "abort-controller"
 
-export default function JoinToGame() {
+export default function JoinToGame(props) {
 
     const { getTokenSilently } = useAuth0();
     const [games, setGames] = useState([])
+    let isMounted = false
 
     useEffect(() => {
-        getTokenSilently().then(token => {    
+        isMounted = true
+
+        const abortController = new AbortController()
+        const signal = abortController.signal
+        getTokenSilently().then(token => {
             fetch('api/games', {
-                method:'GET',
-                headers:{                    
+                signal: signal,
+                method: 'GET',
+                headers: {
                     'Authorization': `Bearer ${token}`,
                 }
             })
-            .then(response => response.json())
-            .then(games => setGames(games))
+                .then(response => response.json())
+                .then(games => {
+                    if (isMounted) {
+                        setGames(games)
+                    }
+                })
         })
+
+        return function cleanup() {
+            isMounted = false
+        }
     })
 
     return (
@@ -26,7 +41,7 @@ export default function JoinToGame() {
             {games.map(game => (
                 <p className="detail-item" key={game.id}>
                     {game.name}
-                    <Button className="float-right">Играть</Button>
+                    <Button className="float-right" onClick={() => props.joinToGame()}>Играть</Button>
                 </p>
             ))}
         </div>

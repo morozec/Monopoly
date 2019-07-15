@@ -65,6 +65,8 @@ namespace Monopoly
                 new GameRepository(Configuration.GetConnectionString("DefaultConnection"),
                     provider.GetService<IRepositoryContextFactory>()));
 
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,8 +90,8 @@ namespace Monopoly
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-
             app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -97,7 +99,7 @@ namespace Monopoly
                     template: "{controller}/{action=Index}/{id?}");
             });
 
-
+            app.UseSignalR(routes => { routes.MapHub<TurnHub>("/turn"); });
 
             app.UseSpa(spa =>
             {
@@ -108,6 +110,7 @@ namespace Monopoly
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+            
         }
     }
 }
