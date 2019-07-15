@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Monopoly
+namespace Monopoly.AuthScope
 {
     public class HasScopeHandler : AuthorizationHandler<HasScopeRequirement>
     {

@@ -1,2 +1,6 @@
 *.user
 .vs
+Model/bin
+Model/obj
+DbRepository/bin
+DbRepository/obj

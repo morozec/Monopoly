@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Monopoly
+namespace Monopoly.AuthScope
 {
     public class HasScopeRequirement : IAuthorizationRequirement
     {

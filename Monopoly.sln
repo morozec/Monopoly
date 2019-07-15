@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly", "Monopoly\Monopoly.csproj", "{4B5DD079-9FAD-4E28-9D6D-DA0EF75297EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monopoly", "Monopoly\Monopoly.csproj", "{4B5DD079-9FAD-4E28-9D6D-DA0EF75297EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{E36A83C7-F4A3-4358-8272-0ADF89C52E9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbRepository", "DbRepository\DbRepository.csproj", "{575675E5-1DC2-4529-817A-C03F07AC6770}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{4B5DD079-9FAD-4E28-9D6D-DA0EF75297EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B5DD079-9FAD-4E28-9D6D-DA0EF75297EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B5DD079-9FAD-4E28-9D6D-DA0EF75297EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E36A83C7-F4A3-4358-8272-0ADF89C52E9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E36A83C7-F4A3-4358-8272-0ADF89C52E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E36A83C7-F4A3-4358-8272-0ADF89C52E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E36A83C7-F4A3-4358-8272-0ADF89C52E9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{575675E5-1DC2-4529-817A-C03F07AC6770}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{575675E5-1DC2-4529-817A-C03F07AC6770}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{575675E5-1DC2-4529-817A-C03F07AC6770}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{575675E5-1DC2-4529-817A-C03F07AC6770}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

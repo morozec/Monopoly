@@ -1,4 +1,6 @@
 using System;
+using DbRepository.Context;
+using DbRepository.Repositories.Game;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Monopoly.AuthScope;
 
 namespace Monopoly
 {
@@ -25,39 +28,12 @@ namespace Monopoly
         public void ConfigureServices(IServiceCollection services)
         {
            
-           
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
-
-            //works
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.RequireHttpsMetadata = false;
-            //        options.SaveToken = true;
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidIssuer = "",
-            //            ValidAudience = "",
-            //            IssuerSigningKey = null,
-            //            ValidateLifetime = true,
-            //            ValidateIssuerSigningKey = true,
-            //            ClockSkew = TimeSpan.Zero
-            //        };
-            //    });
-
-
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.Authority = "https://morozec.auth0.com/";
-            //        options.Audience = "https://localhost:44347/api";
-            //        options.RequireHttpsMetadata = false;
-            //        options.SaveToken = true;
-            //    });
+         
 
             var  domain = $"https://{Configuration["Auth0:Domain"]}/";
             services.AddAuthentication(options =>
@@ -83,6 +59,11 @@ namespace Monopoly
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
+            services.AddScoped<IGameRepository>(provider =>
+                new GameRepository(Configuration.GetConnectionString("DefaultConnection"),
+                    provider.GetService<IRepositoryContextFactory>()));
 
         }
 
