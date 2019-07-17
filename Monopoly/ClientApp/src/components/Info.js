@@ -1,72 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'reactstrap'
-import { useAuth0 } from '../react-auto0-wrapper';
 import NewGame from './NewGame'
+import { useAuth0 } from "./../react-auto0-wrapper";
 
 import './Info.css'
 import JoinToGame from './JoinToGame';
-import * as signalR from '@aspnet/signalr';
+
 
 export default function Info(props) {
 
-    const { isAuthenticated, loginWithRedirect, getTokenSilently, user } = useAuth0();
-    const [status, setStatus] = useState(isAuthenticated ? 'loggedIn' : 'notLoggedIn')
-    const [playerId, setPlayerId] = useState(-1)
-    const [hubConnection, setHubConnection] = useState(null)
+    const { loginWithRedirect } = useAuth0();
 
-
-    useEffect(() => {
-        console.log('effect')
-        if (isAuthenticated) {
-            getTokenSilently().then(token => {
-                fetch('api/player', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`,
-                    },
-                    body: JSON.stringify({ name: user.name })
-                })
-                    .then(response => response.json())
-                    .then(playerId => setPlayerId(playerId))
-            })
-
-            const hc = new signalR.HubConnectionBuilder()
-                .withUrl('https://localhost:44347/turn')
-                .configureLogging(signalR.LogLevel.Information)
-                .build()
-            hc.start()
-                .then(() => console.log('connection start'))
-                .catch(err => console.log('Error while establishing connection :('));
-
-            hc.on('turn', (data) => console.log(data))
-            setHubConnection(hc)
-
-        }        
-    }, [isAuthenticated])
-
-    const createGame = (gameName) => {
-        setStatus('isPlaying')
-
-        getTokenSilently().then(token => {
-            fetch('api/game', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify({ name: gameName, creatorId: playerId })
-            })
-        })
-    }
-
-    const joinToGame = () => {
-        setStatus('isPlaying')
-        hubConnection.invoke('SendToAll', '2nd player')
-    }
-
-    let content;
-    switch (status) {
+    let content;   
+    switch (props.status) {
         case 'notLoggedIn':
             content = (
                 <div className='login-container'>
@@ -84,13 +30,13 @@ export default function Info(props) {
             content = (
                 <div className='login-container'>
                     <Button color='secondary' block
-                        onClick={() => setStatus('newGame')}
+                        onClick={() => props.setStatus('newGame')}
                     >
                         Новая игра
                     </Button>
 
                     <Button color='secondary' block
-                        onClick={() => setStatus('joinToGame')}
+                        onClick={() => props.setStatus('joinToGame')}
                     >
                         Присоединиться к игре
                     </Button>
@@ -100,12 +46,12 @@ export default function Info(props) {
         case 'newGame':
             content = (
                 <div className='login-container'>
-                    <NewGame createGame={createGame} />
+                    <NewGame createGame={props.createGame} />
                 </div>
             )
             break
         case 'joinToGame':
-            content = <JoinToGame joinToGame={joinToGame} />
+            content = <JoinToGame joinToGame={props.joinToGame} />
             break
         case 'isPlaying':
             content = (

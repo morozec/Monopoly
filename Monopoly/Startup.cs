@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Monopoly.AuthScope;
+using Monopoly.Services;
 
 namespace Monopoly
 {
@@ -64,6 +65,7 @@ namespace Monopoly
             services.AddScoped<IGameRepository>(provider =>
                 new GameRepository(Configuration.GetConnectionString("DefaultConnection"),
                     provider.GetService<IRepositoryContextFactory>()));
+            services.AddScoped<IGameService, GameService>();
 
             services.AddSignalR();
 

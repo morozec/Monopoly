@@ -6,6 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 import { Auth0Provider } from "./react-auto0-wrapper";
 import config from "./auth_config.json";
+import AppWithLoading from './AppWithLoading';
 
 
 const rootElement = document.getElementById('root');
@@ -30,7 +31,7 @@ ReactDOM.render(
     audience={config.audience}
     onRedirectCallback={onRedirectCallback}
   >
-    <App />
+    <AppWithLoading />
   </Auth0Provider>,
   rootElement);
 

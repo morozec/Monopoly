@@ -4,14 +4,16 @@ using DbRepository.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbRepository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20190717121119_AddProperties")]
+    partial class AddProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,50 +57,11 @@ namespace DbRepository.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("Model.PlayerProperty", b =>
-                {
-                    b.Property<int>("PlayerId");
-
-                    b.Property<int>("PropertyId");
-
-                    b.HasKey("PlayerId", "PropertyId");
-
-                    b.HasIndex("PropertyId");
-
-                    b.ToTable("PlayerProperty");
-                });
-
-            modelBuilder.Entity("Model.Property", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Properties");
-                });
-
             modelBuilder.Entity("Model.Player", b =>
                 {
                     b.HasOne("Model.Game", "Game")
                         .WithMany()
                         .HasForeignKey("GameId");
-                });
-
-            modelBuilder.Entity("Model.PlayerProperty", b =>
-                {
-                    b.HasOne("Model.Player", "Player")
-                        .WithMany("PlayerProperties")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Model.Property", "Property")
-                        .WithMany("PlayerProperties")
-                        .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

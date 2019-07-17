@@ -7,6 +7,8 @@ namespace DbRepository.Repositories.Game
     public interface IGameRepository
     {
         Task<int> AddPlayer(Player player);
+        Task JoinToGame(int playerId, int gameId);
+        Task MakeTurn(Player player);
 
         Task<List<Model.Game>> GetGames();
         Task AddGame(Model.Game game);

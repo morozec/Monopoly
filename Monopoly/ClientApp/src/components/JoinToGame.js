@@ -41,7 +41,7 @@ export default function JoinToGame(props) {
             {games.map(game => (
                 <p className="detail-item" key={game.id}>
                     {game.name}
-                    <Button className="float-right" onClick={() => props.joinToGame()}>Играть</Button>
+                    <Button className="float-right" onClick={() => props.joinToGame(game.id)}>Играть</Button>
                 </p>
             ))}
         </div>

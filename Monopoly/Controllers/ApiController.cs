@@ -4,6 +4,8 @@ using DbRepository.Repositories.Game;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model;
+using Monopoly.Services;
+using Monopoly.ViewModels;
 
 namespace Monopoly.Controllers
 {
@@ -11,10 +13,12 @@ namespace Monopoly.Controllers
     public class ApiController : Controller
     {
         private readonly IGameRepository _gameRepository;
+        private readonly IGameService _gameService;
 
-        public ApiController(IGameRepository gameRepository)
+        public ApiController(IGameRepository gameRepository, IGameService gameService)
         {
             _gameRepository = gameRepository;
+            _gameService = gameService;
         }
 
         [HttpGet]
@@ -29,11 +33,19 @@ namespace Monopoly.Controllers
         }
 
         [HttpPost]
-        [Route("player")]
+        [Route("addPlayer")]
         [Authorize]
         public async Task<int> AddPlayer([FromBody] Player player)
         {
             return await _gameRepository.AddPlayer(player);
+        }
+
+        [HttpPost]
+        [Route("join")]
+        [Authorize]
+        public async Task JoinToGame([FromBody] JoiningPlayer joiningPlayer)
+        {
+            await _gameService.Join(joiningPlayer);
         }
 
         [HttpPost]
@@ -50,6 +62,14 @@ namespace Monopoly.Controllers
         public async Task<List<Game>> GetGames()
         {
             return await _gameRepository.GetGames();
+        }
+
+        [HttpGet]
+        [Route("players")]
+        [Authorize]
+        public async Task<List<Player>> GetGamePlayers(int gameId)
+        {
+            return await _gameRepository.GetGamePlayers(gameId);
         }
     }
 }

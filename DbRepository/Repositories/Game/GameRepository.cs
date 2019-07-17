@@ -23,6 +23,33 @@ namespace DbRepository.Repositories.Game
             }
         }
 
+        public async Task JoinToGame(int playerId, int gameId)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var contextPlayer = context.Players.Single(p => p.Id == playerId);
+                var game = context.Games.Single(g => g.Id == gameId);
+                contextPlayer.Game = game;
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public Task MakeTurn(Player player)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task UpdatePlayer(Player player)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var contextPlayer = context.Players.Single(p => p.Id == player.Id);
+                contextPlayer.Money = player.Money;
+                contextPlayer.Position = player.Position;
+                await context.SaveChangesAsync();
+            }
+        }
+
         public async Task<List<Model.Game>> GetGames()
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
