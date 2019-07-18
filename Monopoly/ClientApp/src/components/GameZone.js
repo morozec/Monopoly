@@ -1,22 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Button } from 'reactstrap'
 
 import ReactDice from 'react-dice-complete'
 import 'react-dice-complete/dist/react-dice-complete.css'
 
 export default function GameZone(props) {
-
-
+    const [isRolling, setIsRolling] = useState(false)    
 
     let reactDice
-    const rollAll = () => {
+    const rollAll = () => {      
+        setIsRolling(true)      
         reactDice.rollAll()
     }
 
-    const rollDoneCallback = (num) => {
-        if (reactDice) {//пропускаем начальный колбэк, который вызывается сам
+    const rollDoneCallback = (num) => {        
+        if (reactDice) {//пропускаем начальный колбэк, который вызывается сам            
             console.log(`You rolled a ${num}`)
-            props.updatePos(num)
+            props.handleTurn(num)
+            setIsRolling(false)
         }
     }
 
@@ -32,7 +33,7 @@ export default function GameZone(props) {
                 ref={dice => reactDice = dice}
             />
 
-            <Button color='primary' onClick={rollAll}>Бросить кости</Button>
+            <Button color='primary' onClick={rollAll} disabled={isRolling || props.status !== 'playing' || !props.isMyTurn}>Бросить кости</Button>
 
         </div>
     )

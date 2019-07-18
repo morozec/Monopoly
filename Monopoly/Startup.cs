@@ -101,7 +101,7 @@ namespace Monopoly
                     template: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSignalR(routes => { routes.MapHub<TurnHub>("/turn"); });
+            app.UseSignalR(routes => { routes.MapHub<GameHub>("/turn"); });
 
             app.UseSpa(spa =>
             {
