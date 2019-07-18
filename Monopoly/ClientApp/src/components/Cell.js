@@ -1,6 +1,5 @@
 import React from 'react'
 import './Cell.css'
-import car from './../img/car.png'
 
 export default function Cell(props){
     return(
@@ -11,7 +10,8 @@ export default function Cell(props){
             </div>
             <div className='cell-body' >
                 <p><b>{props.name}</b></p>               
-                {props.pos === +props.name && <img src={car} alt='not found'/>}   
+                {props.myToken && props.myPos === +props.name && <img src={props.myToken} alt='not found'/>}   
+                {props.oppToken && props.oppPos === +props.name && <img src={props.oppToken} alt='not found'/>}   
                 <p><b>{`${props.cost}$`}</b></p>
 
             </div>

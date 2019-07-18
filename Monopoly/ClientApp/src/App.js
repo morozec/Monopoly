@@ -4,6 +4,8 @@ import Info from './components/Info'
 import './App.css'
 import { useAuth0 } from "./react-auto0-wrapper";
 import * as signalR from '@aspnet/signalr';
+import car from './img/car.png'
+import dog from './img/dog.png'
 
 
 export default function App() {
@@ -16,7 +18,10 @@ export default function App() {
   const [myPos, setMyPos] = useState(0)
   const [money, setMoney] = useState(1000)
   const [myProperties, setMyProperties] = useState([])
+  const [myToken, setMyToken] = useState(null)
 
+  const [oppPos, setOppPos] = useState(0)
+  const [oppToken, setOppToken] = useState(null)
 
   const properties = [
     { name: '0', cost: 100, color: 'brown' },
@@ -88,9 +93,11 @@ export default function App() {
       hc.on('joined', () => {
         setStatus('playing')
         setIsMyTurn(true)
+        setOppToken(dog)
       })
-      hc.on('turn', () => {
+      hc.on('turn', (newOppPos) => {
         setIsMyTurn(true)
+        setOppPos(newOppPos)
       })
 
       setHubConnection(hc)
@@ -101,6 +108,7 @@ export default function App() {
 
   const createGame = (gameName) => {
     setStatus('waitingForOpp')
+    setMyToken(car)
 
     getTokenSilently().then(token => {
       fetch('api/game', {
@@ -116,6 +124,8 @@ export default function App() {
 
   const joinToGame = (gameId) => {
     setStatus('playing')
+    setMyToken(dog)
+    setOppToken(car)
 
     getTokenSilently().then(token => {
       fetch('api/join', {
@@ -139,7 +149,7 @@ export default function App() {
     setMyProperties([...myProperties, property])
 
     setIsMyTurn(false)
-    hubConnection.invoke('Turn')    
+    hubConnection.invoke('Turn', newPos)    
   }  
 
 
@@ -150,7 +160,11 @@ export default function App() {
         isMyTurn={isMyTurn}
         properties={properties}
         myPos={myPos}
-        handleTurn={handleTurn} />
+        oppPos={oppPos}
+        handleTurn={handleTurn}
+        myToken={myToken}
+        oppToken={oppToken}
+      />
       <Info
         status={status}
         setStatus={setStatus}
