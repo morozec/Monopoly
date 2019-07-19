@@ -30,7 +30,7 @@ export default function Info(props) {
             break
         default:
             throw new Error('unknown status')
-    }
+    }    
 
     return (
         <div className='info'>

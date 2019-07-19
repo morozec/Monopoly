@@ -51,9 +51,9 @@ namespace Monopoly.Controllers
         [HttpPost]
         [Route("game")]
         [Authorize]
-        public async Task AddGame([FromBody]Game game)
+        public async Task<int> AddGame([FromBody]Game game)
         {
-            await _gameRepository.AddGame(game);
+            return await _gameRepository.AddGame(game);
         }
 
         [HttpGet]

@@ -12,6 +12,7 @@ export default function App() {
   const { isAuthenticated, getTokenSilently, user } = useAuth0();
   const [status, setStatus] = useState(isAuthenticated ? 'loggedIn' : 'notLoggedIn')
   const [playerId, setPlayerId] = useState(-1)
+  const [gameId, setGameId] = useState(-1)
   const [hubConnection, setHubConnection] = useState(null)
   const [isMyTurn, setIsMyTurn] = useState(false)
 
@@ -65,10 +66,12 @@ export default function App() {
     { name: '38', cost: 60, color: 'brown' },
     { name: '39', cost: 60, color: 'brown' },
   ]
+   
 
   useEffect(() => {
     console.log('effect')
     if (isAuthenticated) {
+      //добавление пользователя
       getTokenSilently().then(token => {
         fetch('api/addPlayer', {
           method: 'POST',
@@ -82,6 +85,7 @@ export default function App() {
           .then(playerId => setPlayerId(playerId))
       })
 
+      //настройка signalR
       const hc = new signalR.HubConnectionBuilder()
         .withUrl('https://localhost:44347/turn')
         .configureLogging(signalR.LogLevel.Information)
@@ -89,27 +93,35 @@ export default function App() {
       hc.start()
         .then(() => console.log('connection start'))
         .catch(err => console.log('Error while establishing connection :('));
-
-      hc.on('joined', () => {
-        setStatus('playing')
-        setIsMyTurn(true)
-        setOppToken(dog)
-      })
+     
       hc.on('turn', (newOppPos) => {
         setIsMyTurn(true)
         setOppPos(newOppPos)
-      })
+      })    
 
       setHubConnection(hc)
-
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated])  
 
+
+  const handleJoined = (joinedGameId) => {    
+    if (gameId === joinedGameId) {
+      console.log('opponent joined')
+      setStatus('playing')
+      setIsMyTurn(true)
+      setOppToken(dog)
+    }
+  }
+
+  useEffect(() => {
+    if (gameId !== -1){
+      console.log('hc effect')
+      hubConnection.on('joined', handleJoined)
+    }    
+  }, [gameId])
+  
 
   const createGame = (gameName) => {
-    setStatus('waitingForOpp')
-    setMyToken(car)
-
     getTokenSilently().then(token => {
       fetch('api/game', {
         method: 'POST',
@@ -119,13 +131,16 @@ export default function App() {
         },
         body: JSON.stringify({ name: gameName, creatorId: playerId })
       })
+        .then(response => response.json())
+        .then(newGameId => {         
+          setStatus('waitingForOpp')
+          setGameId(newGameId)         
+          setMyToken(car)   
+        })
     })
   }
 
   const joinToGame = (gameId) => {
-    setStatus('playing')
-    setMyToken(dog)
-    setOppToken(car)
 
     getTokenSilently().then(token => {
       fetch('api/join', {
@@ -136,9 +151,14 @@ export default function App() {
         },
         body: JSON.stringify({ playerId: playerId, gameId: gameId })
       })
+      .then(() => {
+        setStatus('playing')
+        setMyToken(dog)
+        setOppToken(car)
+      })
     })
 
-    hubConnection.invoke('Join')
+    hubConnection.invoke('Join', gameId)
   }
 
   const backToStartMenu = () => {
@@ -153,8 +173,8 @@ export default function App() {
     setMyProperties([...myProperties, property])
 
     setIsMyTurn(false)
-    hubConnection.invoke('Turn', newPos)    
-  }  
+    hubConnection.invoke('Turn', newPos)
+  }
 
 
   return (

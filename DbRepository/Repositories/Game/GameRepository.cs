@@ -58,7 +58,7 @@ namespace DbRepository.Repositories.Game
             }
         }
 
-        public async Task AddGame(Model.Game game)
+        public async Task<int> AddGame(Model.Game game)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
@@ -66,6 +66,7 @@ namespace DbRepository.Repositories.Game
                 var gameCreator = context.Players.Single(p => p.Id == game.CreatorId);
                 gameCreator.Game = game;
                 await context.SaveChangesAsync();
+                return game.Id;
             }
         }
 

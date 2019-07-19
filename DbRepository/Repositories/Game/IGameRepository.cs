@@ -11,7 +11,7 @@ namespace DbRepository.Repositories.Game
         Task MakeTurn(Player player);
 
         Task<List<Model.Game>> GetGames();
-        Task AddGame(Model.Game game);
+        Task<int> AddGame(Model.Game game);
         Task<List<Player>> GetGamePlayers(int gameId);
     }
 }
