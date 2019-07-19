@@ -36,14 +36,17 @@ export default function JoinToGame(props) {
     })
 
     return (
-        <div>
+        <div className='games-list-container'>
             <h3>Список игр</h3>
-            {games.map(game => (
-                <p className="detail-item" key={game.id}>
-                    {game.name}
-                    <Button className="float-right" onClick={() => props.joinToGame(game.id)}>Играть</Button>
-                </p>
-            ))}
+            <div className='games-list'>
+                {games.map(game => (
+                    <p className="detail-item" key={game.id}>
+                        {game.name}
+                        <Button className='float-right' onClick={() => props.joinToGame(game.id)}>Играть</Button>
+                    </p>
+                ))}
+            </div>
+            <Button color='secondary' block onClick={() => props.backToStartMenu()}>Отмена</Button>
         </div>
     )
 }

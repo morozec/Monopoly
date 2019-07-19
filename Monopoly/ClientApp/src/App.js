@@ -141,6 +141,10 @@ export default function App() {
     hubConnection.invoke('Join')
   }
 
+  const backToStartMenu = () => {
+    setStatus('loggedIn')
+  }
+
   const handleTurn = (num) => {
     const newPos = (myPos + num) % 40
     setMyPos(newPos)
@@ -170,6 +174,7 @@ export default function App() {
         setStatus={setStatus}
         createGame={createGame}
         joinToGame={joinToGame}
+        backToStartMenu={backToStartMenu}
         money={money} myProperties={myProperties} />
     </div>
   )

@@ -15,13 +15,13 @@ export default function StatMenu(props) {
                 Log in
             </Button>
 
-            <Button color='secondary' block disabled={!isAuthenticated}
+            <Button color='primary' block disabled={!isAuthenticated}
                 onClick={() => props.setStatus('newGame')}
             >
                 Новая игра
             </Button>
 
-            <Button color='secondary' block disabled={!isAuthenticated}
+            <Button color='primary' block disabled={!isAuthenticated}
                 onClick={() => props.setStatus('joinToGame')}
             >
                 Присоединиться к игре

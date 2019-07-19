@@ -20,7 +20,8 @@ export default function NewGame(props) {
                <Label for="gameName">Название игры</Label>
                <Input type="text" id="gameName" placeholder="введите название игры" value={gameName} onChange={handleChange}></Input>
            </FormGroup>
-           <Button type="submit" block>Создать</Button>
+           <Button color='primary' type="submit" className='mr-2 float-right'>Создать</Button>
+           <Button color='secondary' onClick={() => props.backToStartMenu()} className='mr-2 float-right'>Отмена</Button>
        </Form>
     )
 }

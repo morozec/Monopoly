@@ -17,10 +17,10 @@ export default function Info(props) {
             content = <StartMenu {...props} />          
             break
         case 'newGame':
-            content = <NewGame createGame={props.createGame} />
+            content = <NewGame {...props} />
             break
         case 'joinToGame':
-            content = <JoinToGame joinToGame={props.joinToGame} />
+            content = <JoinToGame {...props} />
             break
         case 'waitingForOpp':
             content = <h3>Ждем соперника</h3>                

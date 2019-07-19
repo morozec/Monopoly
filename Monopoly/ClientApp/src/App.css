@@ -32,27 +32,35 @@
     margin-bottom: 1rem;
 }
 
+.games-list-container{
+    display:flex;
+    flex-direction: column;
+
+}
+
+.games-list{
+    height: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    overflow-y: scroll;
+}
+
 p.detail-item {
     border-bottom: solid 1px;
     border-color: #BBBCCB;
     font-size: .87rem;
     padding-bottom: .5rem;
     font-weight: 400;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-.detail-item span {
+p.detail-item span {
     font-weight: bold;
 }
 
-
-.login-container{
-    background-color: pink;     
-    padding: 1rem;    
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;   
-}
 
 .game-board{
     background-color: green;
