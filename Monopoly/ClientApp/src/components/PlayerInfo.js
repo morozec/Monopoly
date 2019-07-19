@@ -5,7 +5,7 @@ export default function PlayerInfo(props) {
     const { user } = useAuth0();
 
     return (
-        <div className='player-info'>
+        <div>
             <h3>{user.name}</h3>
 
             <p className="detail-item">

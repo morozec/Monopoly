@@ -14,14 +14,19 @@
     height:20%;
 }
 
-.player-info{
-    background-color: pink;  
-    width:30%; 
+.info{
+    width: 30%;
+    background-color: pink;      
     padding: 1rem;
-    padding-top: 2rem;    
+    padding-top: 2rem;  
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+    
 }
 
-.player-info h3 {
+.info h3 {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 1rem;
@@ -41,9 +46,7 @@ p.detail-item {
 
 
 .login-container{
-    background-color: pink;  
-
-    width:30%; 
+    background-color: pink;     
     padding: 1rem;    
 
     display: flex;
@@ -53,7 +56,7 @@ p.detail-item {
 
 .game-board{
     background-color: green;
-    width:100%;
+    width:70%;
     height: 100%;    
     display: flex;   
     flex-direction: column;    

@@ -36,7 +36,7 @@ export default function JoinToGame(props) {
     })
 
     return (
-        <div className='login-container'>
+        <div>
             <h3>Список игр</h3>
             {games.map(game => (
                 <p className="detail-item" key={game.id}>

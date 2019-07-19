@@ -1,74 +1,40 @@
 import React from 'react'
-import { Button } from 'reactstrap'
+
 import NewGame from './NewGame'
-import { useAuth0 } from "./../react-auto0-wrapper";
+
 import PlayerInfo from './PlayerInfo'
 
 import JoinToGame from './JoinToGame';
+import StartMenu from './StatMenu'
 
 
-export default function Info(props) {
-
-    const { loginWithRedirect} = useAuth0();
+export default function Info(props) {  
 
     let content;
     switch (props.status) {
         case 'notLoggedIn':
-            content = (
-                <div className='login-container'>
-                    <Button color='primary' block
-                        onClick={() =>
-                            loginWithRedirect({})
-                        }
-                    >
-                        Log in
-                    </Button>
-                </div>
-            )
-            break
         case 'loggedIn':
-            content = (
-                <div className='login-container'>
-                    <Button color='secondary' block
-                        onClick={() => props.setStatus('newGame')}
-                    >
-                        Новая игра
-                    </Button>
-
-                    <Button color='secondary' block
-                        onClick={() => props.setStatus('joinToGame')}
-                    >
-                        Присоединиться к игре
-                    </Button>
-                </div>
-            )
+            content = <StartMenu {...props} />          
             break
         case 'newGame':
-            content = (
-                <div className='login-container'>
-                    <NewGame createGame={props.createGame} />
-                </div>
-            )
+            content = <NewGame createGame={props.createGame} />
             break
         case 'joinToGame':
             content = <JoinToGame joinToGame={props.joinToGame} />
             break
         case 'waitingForOpp':
-            content = (
-                <div className='player-info'>
-                    <h3>Ждем соперника</h3>
-                </div>
-            )
+            content = <h3>Ждем соперника</h3>                
             break
         case 'playing':
-            content = (
-               <PlayerInfo {...props}/>
-            )
+            content = <PlayerInfo {...props}/>
             break
         default:
             throw new Error('unknown status')
     }
 
-
-    return content;
+    return (
+        <div className='info'>
+            {content}
+        </div>
+    )
 }
