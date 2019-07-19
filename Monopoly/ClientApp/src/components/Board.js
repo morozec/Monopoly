@@ -1,6 +1,5 @@
 import React from 'react'
 import Cell from './Cell'
-import './Board.css'
 import GameZone from './GameZone';
 
 export default function Board(props) {   

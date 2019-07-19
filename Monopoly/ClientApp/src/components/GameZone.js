@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Button } from 'reactstrap'
+import PlayerInfo from './PlayerInfo'
 
 import ReactDice from 'react-dice-complete'
 import 'react-dice-complete/dist/react-dice-complete.css'
@@ -24,8 +25,9 @@ export default function GameZone(props) {
 
 
     return (
-        <div className='game-zone'>
+        <div className='game-zone'>            
 
+            
             <ReactDice
                 numDice={2}
                 rollDone={rollDoneCallback}
@@ -34,6 +36,8 @@ export default function GameZone(props) {
             />
 
             <Button color='primary' onClick={rollAll} disabled={isRolling || props.status !== 'playing' || !props.isMyTurn}>Бросить кости</Button>
+
+            
 
         </div>
     )

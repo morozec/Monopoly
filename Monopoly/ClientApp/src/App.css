@@ -5,12 +5,7 @@
     display: flex;
     flex-direction: row;       
 }
-.game-info{
-    background-color: pink;  
-    width:30%; 
-    padding: 1rem;
-    padding-top: 2rem;    
-}
+
 
 
 .game-player{
@@ -19,8 +14,14 @@
     height:20%;
 }
 
+.player-info{
+    background-color: pink;  
+    width:30%; 
+    padding: 1rem;
+    padding-top: 2rem;    
+}
 
-.game-info h3 {
+.player-info h3 {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 1rem;
@@ -37,3 +38,69 @@ p.detail-item {
 .detail-item span {
     font-weight: bold;
 }
+
+
+.login-container{
+    background-color: pink;  
+
+    width:30%; 
+    padding: 1rem;    
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+}
+
+.game-board{
+    background-color: green;
+    width:100%;
+    height: 100%;    
+    display: flex;   
+    flex-direction: column;    
+}
+
+.up-row{
+    height: 9.0909090909090909090909090909091%;
+    width: 100%;    
+    display:flex;
+    flex-direction: row;
+}
+
+.down-row{
+    height: 9.0909090909090909090909090909091%;
+    width: 100%;    
+    display:flex;
+    align-items: flex-end;   
+    flex-direction: row-reverse;    
+}
+
+.center-container{
+    height: 81.818181818181818181818181818182%;
+    display: flex;
+    flex-direction: row;   
+    justify-content: space-between;
+}
+
+.left-col{    
+    width: 9.0909090909090909090909090909091%;   
+    display:flex;
+    flex-direction: column-reverse;
+}
+
+.right-col{
+    
+    width: 9.0909090909090909090909090909091%;   
+    display:flex;
+    flex-direction: column;    
+}
+
+.game-zone{
+    width: 81.818181818181818181818181818182%;
+    height: 100%;
+    background-color: lightgreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+

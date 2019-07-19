@@ -2,14 +2,14 @@ import React from 'react'
 import { Button } from 'reactstrap'
 import NewGame from './NewGame'
 import { useAuth0 } from "./../react-auto0-wrapper";
+import PlayerInfo from './PlayerInfo'
 
-import './Info.css'
 import JoinToGame from './JoinToGame';
 
 
 export default function Info(props) {
 
-    const { loginWithRedirect, user } = useAuth0();
+    const { loginWithRedirect} = useAuth0();
 
     let content;
     switch (props.status) {
@@ -55,27 +55,14 @@ export default function Info(props) {
             break
         case 'waitingForOpp':
             content = (
-                <div className='game-info'>
+                <div className='player-info'>
                     <h3>Ждем соперника</h3>
                 </div>
             )
             break
         case 'playing':
             content = (
-                <div className='game-info'>
-                    <h3>{user.name}</h3>
-
-                    <p className="detail-item">
-                        Денег на счету
-                    <span className="float-right">{`${props.money}$`}</span>
-                    </p>
-
-                    <p className="detail-item">
-                        Участки в собственности
-                    </p>
-                    {props.myProperties.map(p => <div key={p.name}>{p.name}</div>)}
-
-                </div>
+               <PlayerInfo {...props}/>
             )
             break
         default:
