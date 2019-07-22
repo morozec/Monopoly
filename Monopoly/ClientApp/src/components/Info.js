@@ -51,7 +51,7 @@ export default function Info(props) {
             break
         case 'playing':
             content = [                
-                    <PlayerInfo key={0} userName={props.user.name} {...props} />,
+                    <PlayerInfo key={0} {...props} />,
                     <div key={1} className='dice' onClick={rollAll}>
                         <ReactDice
                             numDice={2}

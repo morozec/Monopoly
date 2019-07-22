@@ -21,7 +21,7 @@ export default function App() {
   const [myProperties, setMyProperties] = useState([])
   const [myToken, setMyToken] = useState(null)
 
-  const [oppUserName, setOppUserName] = useState(null)
+  const [oppUser, setOppUser] = useState(null)
   const [oppPos, setOppPos] = useState(0)
   const [oppToken, setOppToken] = useState(null)
   const [oppMoney, setOppMoney] = useState(1000)
@@ -109,10 +109,10 @@ export default function App() {
   }, [isAuthenticated])  
 
 
-  const handleJoined = (joinedGameId, joinedUserName) => {    
+  const handleJoined = (joinedGameId, joinedUser) => {    
     if (gameId === joinedGameId) {
       console.log('opponent joined')
-      setOppUserName(joinedUserName)    
+      setOppUser(joinedUser)    
       setStatus('playing')
       setIsMyTurn(true)
       setOppToken(dog)     
@@ -161,7 +161,7 @@ export default function App() {
         setStatus('playing')
         setMyToken(dog)
         setOppToken(car)
-        setOppUserName('Создатель')
+        setOppUser({name:'Создатель'})//todo
       })
     })
 
@@ -197,7 +197,7 @@ export default function App() {
         oppPos={oppPos}       
         myToken={myToken}
         oppToken={oppToken}
-        userName={oppUserName}
+        user={oppUser}
         money={oppMoney} playerProperties={oppProperties}
       />
       <Info

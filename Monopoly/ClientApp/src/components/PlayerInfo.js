@@ -4,7 +4,7 @@ export default function PlayerInfo(props) {
 
     return (
         <div className='player-info'>
-            <h3>{props.userName}</h3>
+            <h3>{props.user.name}</h3>
 
             <p className="detail-item">
                 Денег на счету

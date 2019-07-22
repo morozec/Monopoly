@@ -5,9 +5,9 @@ namespace Monopoly
 {
     public class GameHub : Hub
     {
-        public async Task Join(int gameId, string joinedUserName)
+        public async Task Join(int gameId, object joinedUser)
         {
-            await Clients.Others.SendCoreAsync("joined", new object[]{gameId, joinedUserName});
+            await Clients.Others.SendCoreAsync("joined", new object[]{gameId, joinedUser});
         }
 
         public async Task Turn(int newPos, int newMoney, object[] properties)
