@@ -21,8 +21,11 @@ export default function App() {
   const [myProperties, setMyProperties] = useState([])
   const [myToken, setMyToken] = useState(null)
 
+  const [oppUserName, setOppUserName] = useState(null)
   const [oppPos, setOppPos] = useState(0)
   const [oppToken, setOppToken] = useState(null)
+  const [oppMoney, setOppMoney] = useState(1000)
+  const [oppProperties, setOppProperties] = useState([])
 
   const properties = [
     { name: '0', cost: 100, color: 'brown' },
@@ -94,9 +97,11 @@ export default function App() {
         .then(() => console.log('connection start'))
         .catch(err => console.log('Error while establishing connection :('));
      
-      hc.on('turn', (newOppPos) => {
+      hc.on('turn', (newOppPos, newOppMoney, newOppProperties) => {
         setIsMyTurn(true)
         setOppPos(newOppPos)
+        setOppMoney(newOppMoney)
+        setOppProperties(newOppProperties)
       })    
 
       setHubConnection(hc)
@@ -104,12 +109,13 @@ export default function App() {
   }, [isAuthenticated])  
 
 
-  const handleJoined = (joinedGameId) => {    
+  const handleJoined = (joinedGameId, joinedUserName) => {    
     if (gameId === joinedGameId) {
       console.log('opponent joined')
+      setOppUserName(joinedUserName)    
       setStatus('playing')
       setIsMyTurn(true)
-      setOppToken(dog)
+      setOppToken(dog)     
     }
   }
 
@@ -155,10 +161,11 @@ export default function App() {
         setStatus('playing')
         setMyToken(dog)
         setOppToken(car)
+        setOppUserName('Создатель')
       })
     })
 
-    hubConnection.invoke('Join', gameId)
+    hubConnection.invoke('Join', gameId, user.name)
   }
 
   const backToStartMenu = () => {
@@ -168,34 +175,41 @@ export default function App() {
   const handleTurn = (num) => {
     const newPos = (myPos + num) % 40
     setMyPos(newPos)
+
     const property = properties[newPos]
-    setMoney(money - property.cost)
-    setMyProperties([...myProperties, property])
+    const newMoney = money - property.cost
+    setMoney(newMoney)
+    
+    const newProperties = [...myProperties, property]
+    setMyProperties(newProperties)
 
     setIsMyTurn(false)
-    hubConnection.invoke('Turn', newPos)
+    console.log(newProperties)
+    hubConnection.invoke('Turn', newPos, newMoney, newProperties)
   }
 
 
   return (
     <div className='game'>
-      <Board
-        status={status}
-        isMyTurn={isMyTurn}
+      <Board       
         properties={properties}
         myPos={myPos}
-        oppPos={oppPos}
-        handleTurn={handleTurn}
+        oppPos={oppPos}       
         myToken={myToken}
         oppToken={oppToken}
+        userName={oppUserName}
+        money={oppMoney} playerProperties={oppProperties}
       />
       <Info
         status={status}
+        isMyTurn={isMyTurn}
         setStatus={setStatus}
         createGame={createGame}
         joinToGame={joinToGame}
+        handleTurn={handleTurn}
         backToStartMenu={backToStartMenu}
-        money={money} myProperties={myProperties} />
+        user={user}
+        money={money} playerProperties={myProperties} />
     </div>
   )
 }

@@ -1,12 +1,10 @@
 import React from 'react'
-import { useAuth0 } from "./../react-auto0-wrapper";
 
-export default function PlayerInfo(props) {
-    const { user } = useAuth0();
+export default function PlayerInfo(props) {    
 
     return (
-        <div>
-            <h3>{user.name}</h3>
+        <div className='player-info'>
+            <h3>{props.userName}</h3>
 
             <p className="detail-item">
                 Денег на счету
@@ -16,7 +14,7 @@ export default function PlayerInfo(props) {
             <p className="detail-item">
                 Участки в собственности
             </p>
-            {props.myProperties.map(p => <div key={p.name}>{p.name}</div>)}
+            {props.playerProperties.map(p => <div key={p.name}>{p.name}</div>)}            
 
         </div>
     )
