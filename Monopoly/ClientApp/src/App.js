@@ -110,6 +110,7 @@ export default function App() {
 
 
   const handleJoined = (joinedGameId, joinedUser) => {    
+    console.log(joinedUser)
     if (gameId === joinedGameId) {
       console.log('opponent joined')
       setOppUser(joinedUser)    
@@ -165,7 +166,7 @@ export default function App() {
       })
     })
 
-    hubConnection.invoke('Join', gameId, user.name)
+    hubConnection.invoke('Join', gameId, user)
   }
 
   const backToStartMenu = () => {
